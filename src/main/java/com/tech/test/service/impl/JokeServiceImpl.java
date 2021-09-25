@@ -33,9 +33,9 @@ public class JokeServiceImpl implements IJokeService {
      *
      * @param randomJokeEndpoint Random jokes endpoint
      */
-    public JokeServiceImpl(@Value("${chuck-api.endpoint.random}") String randomJokeEndpoint) {
+    public JokeServiceImpl(@Value("${chuck-api.endpoint.random}") String randomJokeEndpoint, RestTemplate rest) {
         this.randomJokeEndpoint = randomJokeEndpoint;
-        this.rest = new RestTemplate();
+        this.rest = rest;
     }
 
     /**

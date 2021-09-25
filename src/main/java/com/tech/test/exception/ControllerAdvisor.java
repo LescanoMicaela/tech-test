@@ -28,7 +28,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
      * with 404 code
      */
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
+    public ResponseEntity<ErrorDTO> handleResourceNotFoundException(ResourceNotFoundException ex) {
         log.info(ERROR_HANDLED, ex.getMessage());
 
         return new ResponseEntity<>((ErrorDTO.builder()
@@ -44,7 +44,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
      * with 404 code
      */
     @ExceptionHandler(HttpClientErrorException.class)
-    public ResponseEntity<Object> handleHttpClientErrorException(HttpClientErrorException ex) {
+    public ResponseEntity<ErrorDTO> handleHttpClientErrorException(HttpClientErrorException ex) {
         log.info(ERROR_HANDLED, ex.getMessage());
 
         return new ResponseEntity<>((ErrorDTO.builder()
@@ -60,7 +60,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
      * with 503 code
      */
     @ExceptionHandler(HttpServerErrorException.class)
-    public ResponseEntity<Object> handleHttpServerErrorException(HttpServerErrorException ex) {
+    public ResponseEntity<ErrorDTO> handleHttpServerErrorException(HttpServerErrorException ex) {
         log.info(ERROR_HANDLED, ex.getMessage());
 
         return new ResponseEntity<>((ErrorDTO.builder()
