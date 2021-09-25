@@ -1,2 +1,6 @@
 server:
   port: ${server.port}
+
+chuck-api:
+  endpoint:
+    random: {jokes.random}
