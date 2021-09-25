@@ -3,4 +3,4 @@ server:
 
 chuck-api:
   endpoint:
-    random: {jokes.random}
+    random: ${jokes.random}

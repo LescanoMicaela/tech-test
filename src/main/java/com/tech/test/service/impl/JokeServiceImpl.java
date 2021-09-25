@@ -3,6 +3,7 @@ package com.tech.test.service.impl;
 import com.tech.test.model.dto.JokeDTO;
 import com.tech.test.service.IJokeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -26,14 +27,13 @@ public class JokeServiceImpl implements IJokeService {
     private final RestTemplate rest;
 
     /**
-     * All args contructor
+     * Constructor
      *
      * @param randomJokeEndpoint Random jokes endpoint
-     * @param rest               RestTemplate injection
      */
-    public JokeServiceImpl(@Value("${chuck-api.endpoint.random}") String randomJokeEndpoint, RestTemplate rest) {
+    public JokeServiceImpl(@Value("${chuck-api.endpoint.random}") String randomJokeEndpoint) {
         this.randomJokeEndpoint = randomJokeEndpoint;
-        this.rest = rest;
+        this.rest = new RestTemplate();
     }
 
     /**

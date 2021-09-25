@@ -25,7 +25,7 @@ public interface IJokeController {
      */
     @Operation(summary = "Get a random Chuck Norris joke")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found a joke",
+            @ApiResponse(responseCode = "200", description = "Success",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = JokeDTO.class)) }),
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
