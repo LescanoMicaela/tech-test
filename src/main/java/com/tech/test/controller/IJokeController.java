@@ -26,10 +26,12 @@ public interface IJokeController {
     @Operation(summary = "Get a random Chuck Norris joke")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = JokeDTO.class)) }),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = JokeDTO.class))}),
+            @ApiResponse(responseCode = "404", description = "Not found",
+                    content = @Content),
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
-                    content = @Content) })
+                    content = @Content)})
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<JokeDTO> getRandomJoke();
 }

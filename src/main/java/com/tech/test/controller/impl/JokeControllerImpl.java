@@ -36,6 +36,7 @@ public class JokeControllerImpl implements IJokeController {
      * @return ResponseEntity
      * <p>
      * 200 - OK
+     * 404 - Not found
      * 503 - Service Unavailable error
      * </p>
      */

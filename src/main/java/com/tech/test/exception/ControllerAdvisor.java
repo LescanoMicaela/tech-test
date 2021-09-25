@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 /**
@@ -18,6 +20,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
+    public static final String ERROR_HANDLED = "Error handled {}";
+
     /**
      * Handles ResourceNotFoundException
      * retuns a ResponseEntity
@@ -25,7 +29,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<Object> handleResourceNotFoundException(ResourceNotFoundException ex) {
-        log.info("Error handled {}", ex.getMessage());
+        log.info(ERROR_HANDLED, ex.getMessage());
 
         return new ResponseEntity<>((ErrorDTO.builder()
                 .code(404)
@@ -33,4 +37,39 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 .level("WARNING"))
                 .build(), HttpStatus.NOT_FOUND);
     }
+
+    /**
+     * Handles HttpClientErrorException
+     * retuns a ResponseEntity
+     * with 404 code
+     */
+    @ExceptionHandler(HttpClientErrorException.class)
+    public ResponseEntity<Object> handleHttpClientErrorException(HttpClientErrorException ex) {
+        log.info(ERROR_HANDLED, ex.getMessage());
+
+        return new ResponseEntity<>((ErrorDTO.builder()
+                .code(ex.getRawStatusCode())
+                .message("Unable to complete request. Please try again later.")
+                .level("ERROR"))
+                .build(), ex.getStatusCode());
+    }
+
+    /**
+     * Handles ResourceNotFoundException
+     * retuns a ResponseEntity
+     * with 503 code
+     */
+    @ExceptionHandler(HttpServerErrorException.class)
+    public ResponseEntity<Object> handleHttpServerErrorException(HttpServerErrorException ex) {
+        log.info(ERROR_HANDLED, ex.getMessage());
+
+        return new ResponseEntity<>((ErrorDTO.builder()
+                .code(ex.getRawStatusCode())
+                .message("Unable to complete request." + ex.getLocalizedMessage())
+                .level("ERROR"))
+                .build(), ex.getStatusCode());
+    }
+
+
+
 }
