@@ -1,12 +1,14 @@
 package com.tech.test.service.impl;
 
+import com.tech.test.exception.ResourceNotFoundException;
 import com.tech.test.model.dto.JokeDTO;
 import com.tech.test.service.IJokeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Optional;
 
 /**
  * Joke Service, make api calls
@@ -46,6 +48,7 @@ public class JokeServiceImpl implements IJokeService {
     public JokeDTO getRandomJoke() {
         log.info("JokeServiceImpl.getRandomJoke()");
         log.info("API call {}",randomJokeEndpoint);
-        return rest.getForObject(randomJokeEndpoint, JokeDTO.class);
+        return Optional.ofNullable(rest.getForObject(randomJokeEndpoint, JokeDTO.class))
+                .orElseThrow( () -> new ResourceNotFoundException("No joke found"));
     }
 }

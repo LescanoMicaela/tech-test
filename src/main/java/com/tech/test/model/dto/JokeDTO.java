@@ -18,13 +18,13 @@ public class JokeDTO {
     /**
      * Joke unique ide
      */
-    @Schema(description = "Joke unique id")
+    @Schema(description = "Joke unique id", example = "jpWRorhwSSmVh4EzW00oXQ")
     String id;
 
     /**
      * Joke text with it's description
      */
-    @Schema(ref = "Joke description")
+    @Schema(ref = "Joke description", example = "There are no Chuck Norris Jokes. Only Chuck Norris Facts.")
     String text;
 
     /**

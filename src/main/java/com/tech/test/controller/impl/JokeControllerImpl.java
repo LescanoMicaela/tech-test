@@ -42,6 +42,7 @@ public class JokeControllerImpl implements IJokeController {
     @Override
     @PostMapping(value = "/joke-request")
     public ResponseEntity<JokeDTO> getRandomJoke() {
+        log.info("JokeControllerImpl.getRandomJoke");
         return ResponseEntity.ok(service.getRandomJoke());
     }
 }
