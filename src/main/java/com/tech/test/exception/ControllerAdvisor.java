@@ -65,7 +65,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>((ErrorDTO.builder()
                 .code(ex.getRawStatusCode())
-                .message("Unable to complete request." + ex.getLocalizedMessage())
+                .message("Unable to complete request. " + ex.getMessage())
                 .level("ERROR"))
                 .build(), ex.getStatusCode());
     }
