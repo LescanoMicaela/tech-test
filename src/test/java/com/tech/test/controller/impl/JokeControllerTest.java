@@ -2,6 +2,7 @@ package com.tech.test.controller.impl;
 
 import com.tech.test.controller.IJokeController;
 import com.tech.test.exception.ControllerAdvisor;
+import com.tech.test.exception.ResourceNotFoundException;
 import com.tech.test.model.dto.ErrorDTO;
 import com.tech.test.model.dto.JokeDTO;
 import com.tech.test.service.IJokeService;
@@ -21,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -80,6 +82,27 @@ public class JokeControllerTest {
         when(service.getRandomJoke()).thenThrow(new HttpServerErrorException(HttpStatus.SERVICE_UNAVAILABLE));
         mvc.perform(post("/v1/joke-request"))
                 .andExpect(status().is5xxServerError());
+    }
+
+
+    @Test
+    public void getJokeByIdOk() {
+        var expected = ResponseEntity.ok(joke);
+        when(service.getJokeById("id")).thenReturn(joke);
+
+        var actual = controller.getJoke("id");
+
+        assertNotNull(actual);
+        assertEquals(expected, actual);
+        verify(service, times(1)).getJokeById("id");
+    }
+
+    @Test
+    public void getJokeByIdWillReturn404Code() throws Exception {
+
+        when(service.getJokeById("id")).thenThrow(new ResourceNotFoundException("Joke not found"));
+        mvc.perform(get("/v1/joke/id"))
+                .andExpect(status().isNotFound());
     }
 
 }

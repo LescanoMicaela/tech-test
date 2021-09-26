@@ -28,6 +28,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -106,10 +108,32 @@ public class JokeServiceImplTest {
         service.getRandomJoke();
     }
 
+
+    @Test
+    public void getJokeByIdOk() {
+
+        when(repo.findJokeById("id")).thenReturn(Optional.of(jokeEntity));
+        when(mapper.jokeToJokeDTO(jokeEntity)).thenReturn(joke);
+        var actual = service.getJokeById("id");
+        assertNotNull(actual);
+        assertEquals(joke.getId(), actual.getId());
+        assertEquals(joke.getText(), actual.getText());
+
+        verify(repo, times(1)).findJokeById("id");
+        verify(mapper, times(1)).jokeToJokeDTO(jokeEntity);
+
+    }
+
+
+    @Test(expected = ResourceNotFoundException.class)
+    public void getJokeByIdWillThrowResourceNotFoundExceptionTest() {
+        when(repo.findJokeById("id")).thenReturn(Optional.of(jokeEntity));
+        when(mapper.jokeToJokeDTO(jokeEntity)).thenThrow(new ResourceNotFoundException("Not found"));
+        service.getJokeById("id");
+    }
+
     @Configuration
     static class Config {
-
-        // this bean will be injected into the OrderServiceTest class
 
         @Autowired
         ClientConfigProperties clientConfigProperties;
