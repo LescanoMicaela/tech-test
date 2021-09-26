@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * Joke data transfer object
  * for IJokeService
@@ -13,7 +15,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JokeDTO {
+public class JokeDTO implements Serializable {
+
+    private static final long serialVersionUID = 7156526077883281623L;
+
 
     /**
      * Joke unique ide

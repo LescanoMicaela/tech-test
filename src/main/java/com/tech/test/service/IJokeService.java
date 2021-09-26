@@ -1,5 +1,6 @@
 package com.tech.test.service;
 
+import com.tech.test.model.Joke;
 import com.tech.test.model.dto.JokeDTO;
 
 /**
@@ -17,5 +18,20 @@ public interface IJokeService {
      */
     JokeDTO getRandomJoke();
 
+    /**
+     * This method will get a
+     * joke by id from the cache
+     *
+     * @param id joke id
+     * @return JokeDTO
+     */
     JokeDTO getJokeById(String id);
+
+    /**
+     * This method will load
+     * the cache
+     *
+     * @param joke the joke
+     */
+    void loadCache(Joke joke);
 }

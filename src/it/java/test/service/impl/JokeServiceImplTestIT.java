@@ -2,6 +2,8 @@ package test.service.impl;
 
 
 import com.tech.test.TestApplication;
+import com.tech.test.mapper.JokeMapper;
+import com.tech.test.repository.IJokeRepository;
 import com.tech.test.service.IJokeService;
 import com.tech.test.service.impl.JokeServiceImpl;
 import org.junit.Test;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
@@ -41,9 +44,18 @@ public class JokeServiceImplTestIT {
         @Value("${chuck-api.endpoint.random}")
         String randomJokeEndpoint;
 
+        @Autowired
+        IJokeRepository repo;
+
+        @Autowired
+        JokeMapper mapper;
+
+        @Autowired
+        CacheManager cacheManager;
+
         @Bean
         public IJokeService jokeService() {
-            return new JokeServiceImpl(randomJokeEndpoint, rest);
+            return new JokeServiceImpl(randomJokeEndpoint, rest, repo, mapper, cacheManager);
         }
 
     }
