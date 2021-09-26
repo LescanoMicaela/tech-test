@@ -16,4 +16,6 @@ public interface IJokeService {
      * @return JokeDTO
      */
     JokeDTO getRandomJoke();
+
+    JokeDTO getJokeById(String id);
 }
