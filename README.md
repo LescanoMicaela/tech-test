@@ -30,7 +30,7 @@ Software you will need to install.
 
 ## Deployment
 
-1. Follow the deployment guide on the orchestrator readme.
+1. Deploy.
 
 2. Check the Swagger on your browser:
 
