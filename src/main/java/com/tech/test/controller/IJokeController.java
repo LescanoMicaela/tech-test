@@ -1,5 +1,6 @@
 package com.tech.test.controller;
 
+import com.tech.test.model.dto.ErrorDTO;
 import com.tech.test.model.dto.JokeDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -32,9 +33,12 @@ public interface IJokeController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = JokeDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Not found",
-                    content = @Content),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDTO.class))}),
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
-                    content = @Content)})
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDTO.class))})
+    })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<JokeDTO> getRandomJoke();
 
@@ -52,9 +56,12 @@ public interface IJokeController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = JokeDTO.class))}),
             @ApiResponse(responseCode = "404", description = "Not found",
-                    content = @Content),
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDTO.class))}),
             @ApiResponse(responseCode = "503", description = "Service Unavailable",
-                    content = @Content)})
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ErrorDTO.class))})
+    })
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<JokeDTO> getJoke(@Parameter(name = "id", required = true, example = "jpWRorhwSSmVh4EzW00oXQ", description = "joke identifier") @PathVariable String id);
 }

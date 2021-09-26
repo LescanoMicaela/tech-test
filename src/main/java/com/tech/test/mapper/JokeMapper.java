@@ -14,6 +14,13 @@ import java.util.Optional;
 @Component
 public class JokeMapper {
 
+    /**
+     * Method to map Joke entity to
+     * JokeDto
+     *
+     * @param joke joke entity
+     * @return JokeDTO
+     */
     public JokeDTO jokeToJokeDTO(Joke joke) {
         return JokeDTO.builder()
                 .text(Optional.ofNullable(joke.getText())
@@ -23,6 +30,13 @@ public class JokeMapper {
                 .build();
     }
 
+    /**
+     * Method to map JokeDto to
+     * joke entity
+     *
+     * @param joke joke data transfer object
+     * @return Joke entity
+     */
     public Joke jokeDTOToJoke(JokeDTO joke) {
         return Joke.builder()
                 .text(Optional.ofNullable(joke.getText())

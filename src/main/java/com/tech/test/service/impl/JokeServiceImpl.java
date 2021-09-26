@@ -9,7 +9,6 @@ import com.tech.test.service.IJokeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -89,14 +88,13 @@ public class JokeServiceImpl implements IJokeService {
      * @return JokeDTO
      */
     @Override
-    @Cacheable(value = "jokes", key = "{#id}")
     public JokeDTO getJokeById(String id) {
         log.info("JokeServiceImpl.getJokeById()");
         log.info("Searching joke from cache");
         return mapper.jokeToJokeDTO(
                 repo.findJokeById(id)
                         .orElseThrow(
-                                () -> new ResourceNotFoundException("No joke found in cache with this id")));
+                                () -> new ResourceNotFoundException("No joke found in cache with id " + id)));
     }
 
 

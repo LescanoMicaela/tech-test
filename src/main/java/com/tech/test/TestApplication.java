@@ -27,11 +27,21 @@ public class TestApplication {
         SpringApplication.run(TestApplication.class, args);
     }
 
+    /**
+     * Bean for rest template
+     *
+     * @return RestTemplate
+     */
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
 
+    /**
+     * Bean for jedis connection factory
+     *
+     * @return JedisConnectionFactory
+     */
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
 
@@ -41,6 +51,11 @@ public class TestApplication {
 
     }
 
+    /**
+     * Bean for redis template
+     *
+     * @return RedisTemplate
+     */
     @Bean
     public RedisTemplate<String, Joke> redisTemplate() {
         RedisTemplate<String, Joke> template = new RedisTemplate<>();

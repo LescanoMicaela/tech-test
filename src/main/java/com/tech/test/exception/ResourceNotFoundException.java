@@ -8,7 +8,10 @@ public class ResourceNotFoundException extends RuntimeException {
 
     /**
      * All args contructor
+     *
      * @param msg execption message
      */
-    public ResourceNotFoundException(String msg){super(msg);}
+    public ResourceNotFoundException(String msg) {
+        super(msg);
+    }
 }
