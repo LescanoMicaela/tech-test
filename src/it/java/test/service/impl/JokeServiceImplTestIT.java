@@ -2,6 +2,7 @@ package test.service.impl;
 
 
 import com.tech.test.TestApplication;
+import com.tech.test.exception.ResourceNotFoundException;
 import com.tech.test.mapper.JokeMapper;
 import com.tech.test.repository.IJokeRepository;
 import com.tech.test.service.IJokeService;
@@ -28,12 +29,26 @@ public class JokeServiceImplTestIT {
 
 
     @Test
-    public void getRandomJokeOk() {
+    public void getRandomJoke() {
         var response = service.getRandomJoke();
         assertNotNull(response);
         assertNotNull(response.getText());
         assertNotNull(response.getId());
 
+    }
+
+    @Test
+    public void getJokeById() {
+        var id = service.getRandomJoke().getId();
+        var response = service.getJokeById(id);
+        assertNotNull(response);
+        assertNotNull(response.getText());
+        assertNotNull(response.getId());
+    }
+
+    @Test(expected = ResourceNotFoundException.class)
+    public void getJokeByIdNull() {
+        var response = service.getJokeById("id");
     }
 
     @TestConfiguration
