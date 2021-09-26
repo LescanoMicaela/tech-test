@@ -1,7 +1,6 @@
 # tech-test
-Microservice for tech test
-Service that call Chuck Norris Api to get random jokes and save them in Redis Cache.
-The jokes saved in cache can be search by id.
+Service that calls Chuck Norris Api to get random jokes and saves them in Redis Cache.
+The jokes saved in cache can be found by id.
 
 ## Getting Started
 
